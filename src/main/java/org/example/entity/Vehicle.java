@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,8 +28,10 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     Segment segment;
     boolean inRent;
-    @OneToOne(mappedBy = "vehicle")
-    Rent rent;
+    @OneToMany(mappedBy = "vehicle")
+    List<Rent> rents;
+
+//    (mappedBy = "vehicle")
 
 
 

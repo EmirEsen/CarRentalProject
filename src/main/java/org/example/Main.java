@@ -40,9 +40,7 @@ public class Main {
                      """);
             int input = Util.intScanner("input: ");
             switch (input) {
-                case 1 -> {
-                    vehicleController.addNewVehicle();
-                }
+                case 1 -> vehicleController.addNewVehicle();
                 case 2 -> {
                     Vehicle vehicle = vehicleController.selectListedVehicles(vehicleController.searchVehicleWithFilter());
                     if (vehicle != null) {
@@ -50,18 +48,10 @@ public class Main {
                         rentController.newRent(customer, vehicle);
                     }
                 }
-                case 3 -> {
-                    customerController.addNewCustomer();
-                }
-                case 4 -> {
-                    rentMenu();
-                }
-                case 5 -> {
-                    reportMenu();
-                }
-                case 0 -> {
-                    System.exit(0);
-                }
+                case 3 -> customerController.addNewCustomer();
+                case 4 -> rentMenu();
+                case 5 -> reportMenu();
+                case 0 -> System.exit(0);
 
             }
         }
@@ -93,9 +83,7 @@ public class Main {
                     List<Rent> activeRentOfCustomer = customerController.getActiveRentOfCustomerByTckn();
                     rentController.returnRent(activeRentOfCustomer.getFirst());
                 }
-                case 0 -> {
-                    menu();
-                }
+                case 0 -> menu();
 
             }
         }
@@ -113,19 +101,13 @@ public class Main {
                      """);
             int input = Util.intScanner("input: ");
             switch (input) {
-                case 1 -> {
-                    vehicleController.printVehiclesInRent();
-                }
-                case 2 -> {
-                    vehicleController.printAvailableVehicles();
-                }
+                case 1 -> vehicleController.printVehiclesInRent();
+                case 2 -> vehicleController.printAvailableVehicles();
                 case 3 -> {
                     Customer customer = customerController.getCustomerByTckn();
                     vehicleController.printVehiclesRentedByCustomer(customer);
                 }
-                case 0 -> {
-                    menu();
-                }
+                case 0 -> menu();
 
             }
         }

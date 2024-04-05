@@ -43,7 +43,7 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
     public List<Vehicle> getVehiclesInRent() {
         String queryString = "SELECT v " +
                 "FROM Vehicle v " +
-                "JOIN v.rent r " +
+                "JOIN Rent r ON v = r.vehicle " +
                 "WHERE r IS NOT NULL AND r.status = :status";
         TypedQuery<Vehicle> query = getEntityManager().createQuery(queryString, Vehicle.class);
         query.setParameter("status", Status.ACTIVE);

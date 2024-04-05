@@ -21,7 +21,7 @@ public class Rent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @JoinColumn(nullable = false)
-    @OneToOne
+    @ManyToOne
     Vehicle vehicle;
     @JoinColumn(nullable = false)
     @ManyToOne

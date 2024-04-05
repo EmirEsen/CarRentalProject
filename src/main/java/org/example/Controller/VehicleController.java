@@ -45,7 +45,7 @@ public class VehicleController {
     public Vehicle chooseAvailableVehicleBySegment() {
         Segment segment = selectSegment();
         String content = "| %-2s | %-15s | %-15s |";
-        String contentFormatted = content.formatted("", "", "");
+        String contentFormatted = content.formatted("Id", "Brand", "Model");
         int headerLength = Util.printMenuHeader(segment.name(), contentFormatted.length());
         System.out.println(contentFormatted);
         System.out.println("-".repeat(headerLength));
@@ -117,9 +117,12 @@ public class VehicleController {
         int headerLength = Util.printMenuHeader("Vehicles In Rent", contentFormatted.length());
         System.out.println(contentFormatted);
         System.out.println("-".repeat(headerLength));
-        vehicleService.getVehiclesInRent().forEach(v -> {
-            System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(),
-                    v.getRent().getCustomer().getTckn(), v.getRent().getCustomer().getFirstname(), v.getRent().getCustomer().getLastname());
+        vehicleService.getVehiclesInRent()
+                .stream()
+                .filter(Vehicle::isInRent)
+                .forEach(v -> {
+            System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), v.getRents().getFirst().getCustomer().getTckn(),
+                    v.getRents().getFirst().getCustomer().getFirstname(), v.getRents().getFirst().getCustomer().getLastname());
         });
         System.out.println("-".repeat(headerLength));
     }
