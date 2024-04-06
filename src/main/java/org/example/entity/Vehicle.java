@@ -31,7 +31,7 @@ public class Vehicle {
     @OneToMany(mappedBy = "vehicle")
     List<Rent> rents;
 
-//    (mappedBy = "vehicle")
+
 
 
 

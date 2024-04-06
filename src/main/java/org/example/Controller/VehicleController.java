@@ -7,6 +7,7 @@ import org.example.service.VehicleService;
 import org.example.util.Util;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class VehicleController {
     VehicleService vehicleService = new VehicleService();
@@ -42,23 +43,28 @@ public class VehicleController {
         return vehicleService.getVehicleWithFilter(vehicleField, filterValue);
     }
 
+    //todo burda vehicle iki kere donduruluyor list olarak donduruldugu icin mi pk constraint veriyor
     public Vehicle chooseAvailableVehicleBySegment() {
         Segment segment = selectSegment();
         String content = "| %-2s | %-15s | %-15s |";
-        String contentFormatted = content.formatted("Id", "Brand", "Model");
+        String contentFormatted = content.formatted("#", "Brand", "Model");
         int headerLength = Util.printMenuHeader(segment.name(), contentFormatted.length());
         System.out.println(contentFormatted);
         System.out.println("-".repeat(headerLength));
-
-        vehicleService.getVehiclesBySegment(segment).stream()
-                .filter(v -> !v.isInRent()) //bosta olan araclari gosterir. //booleanleri degistiremedim!!
+        AtomicInteger count = new AtomicInteger();
+        List<Vehicle> vehicles = vehicleService.getVehiclesBySegment(segment);
+               vehicles.stream()
+                .filter(v -> !v.isInRent()) //bosta olan araclari gosterir.
                 .forEach(v -> {
-                    System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel());
+
+                    System.out.printf("| %-2d | %-15s | %-15s |%n", count.incrementAndGet(), v.getBrand(), v.getModel());
+
                 });
         System.out.println("-".repeat(headerLength));
-        Long vehicleId = Util.longScanner("Choose Vehicle[id]: ");
+        int vehicleId = Util.intScanner("Choose Vehicle: ");
 
-        return vehicleService.getVehicleById(vehicleId);
+        return vehicles.get(vehicleId-1);
+//        return vehicleService.getVehicleById(vehicleId);
     }
 
     private Segment selectSegment() {

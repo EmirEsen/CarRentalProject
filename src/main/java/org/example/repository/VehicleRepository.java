@@ -23,6 +23,10 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
         return findByColumnAndValue("segment", segment);
     }
 
+    public void detachAllVehicles(List<Vehicle> vehicles){
+        detachAll(vehicles);
+    }
+
     public Field[] getFieldNames(Class<Vehicle> entityClass) {
         return entityClass.getDeclaredFields();
     }

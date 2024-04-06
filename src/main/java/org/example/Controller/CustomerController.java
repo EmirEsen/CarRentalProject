@@ -27,10 +27,10 @@ public class CustomerController {
         return customerService.saveCustomer(newCustomer);
     }
 
-    public List<Rent> getActiveRentOfCustomerByTckn(){
-        Customer customer = getCustomerByTckn();
-        return customerService.getActiveRentOfCustomer(customer);
-    }
+//    public List<Rent> getActiveRentOfCustomerByTckn(){
+//        Customer customer = getCustomerByTckn();
+//        return customerService.getActiveRentOfCustomer(customer);
+//    }
 
     public Customer getCustomerByTckn(){
         String tckn = Util.stringScanner("Customer Tckn: ");

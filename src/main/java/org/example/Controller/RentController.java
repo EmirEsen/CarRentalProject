@@ -21,7 +21,10 @@ public class RentController {
     }
 
     public Rent returnRent(Rent rent){
-
         return rentService.returnRent(rent);
+    }
+
+    public Rent getCustomerActiveRent(Customer customer){
+        return rentService.getCustomerActiveRent(customer);
     }
 }

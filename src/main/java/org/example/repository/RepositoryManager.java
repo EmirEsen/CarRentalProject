@@ -47,6 +47,27 @@ public class RepositoryManager<T, ID> implements ICRUD<T, ID> {
         return emf.createEntityManager();
     }
 
+    public Iterable<T> detachAll(Iterable<T> entities) {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            for (T entity : entities) {
+                em.detach(entity);
+            }
+            tx.commit();
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
+        return entities;
+    }
+
     @Override
     public Iterable<T> saveAll(Iterable<T> entities) {
         EntityManager em = getEntityManager();

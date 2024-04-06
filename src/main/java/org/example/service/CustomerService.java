@@ -19,9 +19,9 @@ public class CustomerService {
         return customerRepository.findByTckn(tckn);
     }
 
-    public List<Rent> getActiveRentOfCustomer(Customer customer){
-        return customerRepository.getActiveRentOfCustomer(customer);
-    }
+//    public List<Rent> getActiveRentOfCustomer(Customer customer){
+//        return customerRepository.getActiveRentOfCustomer(customer);
+//    }
 
 
 }

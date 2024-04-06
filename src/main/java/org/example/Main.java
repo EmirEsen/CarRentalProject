@@ -65,7 +65,7 @@ public class Main {
                      [1]- New Rent
                      [2]- Return Rental
                      [0]- Back
-                     """);
+                    """);
             int input = Util.intScanner("input: ");
             switch (input) {
                 case 1 -> {
@@ -80,8 +80,9 @@ public class Main {
                     rentController.newRent(customer, vehicle);
                 }
                 case 2 -> {
-                    List<Rent> activeRentOfCustomer = customerController.getActiveRentOfCustomerByTckn();
-                    rentController.returnRent(activeRentOfCustomer.getFirst());
+//                    List<Rent> activeRentOfCustomer = customerController.getActiveRentOfCustomerByTckn();
+                    Rent activeRent = rentController.getCustomerActiveRent(customerController.getCustomerByTckn());
+                    rentController.returnRent(activeRent);
                 }
                 case 0 -> menu();
 
@@ -98,7 +99,7 @@ public class Main {
                      [2]- Show Available Vehicles
                      [3]- Show Vehicles Rented By Customer
                      [0]- Quit
-                     """);
+                    """);
             int input = Util.intScanner("input: ");
             switch (input) {
                 case 1 -> vehicleController.printVehiclesInRent();

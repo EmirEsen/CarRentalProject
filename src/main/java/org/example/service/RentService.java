@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.entity.Customer;
 import org.example.entity.Rent;
 import org.example.entity.Vehicle;
 import org.example.entity.enums.Status;
@@ -25,6 +26,10 @@ public class RentService {
         System.out.printf("SUCCESS: %s %s returned -> %s %s\n", rent.getCustomer().getFirstname(),
                 rent.getCustomer().getLastname(), rent.getVehicle().getBrand(), rent.getVehicle().getModel());
         return rentRepository.returnRent(rent);
+    }
+
+    public Rent getCustomerActiveRent(Customer customer){
+        return rentRepository.getCustomersActiveRent(customer);
     }
 
 

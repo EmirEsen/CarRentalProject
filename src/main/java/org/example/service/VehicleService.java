@@ -19,9 +19,15 @@ public class VehicleService {
         return vehicleRepository.getVehiclesBySegment(segment);
     }
 
+    public void detachAllVehicles(List<Vehicle> vehicles) {
+        vehicleRepository.detachAllVehicles(vehicles);
+    }
+
     public Vehicle getVehicleById(Long id) {
         return vehicleRepository.findById(id).orElse(null);
     }
+
+
 
     public List<Vehicle> getVehicleWithFilter(String filtername, String filterValue){
         return vehicleRepository.getVehiclesWithFilter(filtername, filterValue);
