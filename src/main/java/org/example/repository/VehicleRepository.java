@@ -36,6 +36,8 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
     }
 
 
+
+
     public List<Vehicle> getAvailableVehicles() {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Vehicle> cr = criteriaBuilder.createQuery(Vehicle.class);
@@ -54,16 +56,8 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
         return query.getResultList();
     }
 
-    public List<Vehicle> getVehiclesRentedByCustomer(Long customerId) {
-        String queryString = "SELECT v " +
-                "FROM Vehicle v " +
-                "JOIN v.rent r " +
-                "WHERE r.customer.id = :customerId";
 
-        TypedQuery<Vehicle> query = getEntityManager().createQuery(queryString, Vehicle.class);
-        query.setParameter("customerId", customerId);
-        return query.getResultList();
-    }
+
 
 
 

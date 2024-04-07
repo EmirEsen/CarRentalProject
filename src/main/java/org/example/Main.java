@@ -37,7 +37,7 @@ public class Main {
                      [4]- Rent Menu
                      [5]- Reports
                      [0]- Quit
-                     """);
+                    """);
             int input = Util.intScanner("input: ");
             switch (input) {
                 case 1 -> vehicleController.addNewVehicle();
@@ -71,12 +71,13 @@ public class Main {
                 case 1 -> {
                     Customer customer = customerController.getCustomerByTckn();
                     if (customer.isHasRent()){
-                        System.out.printf("%s %s %s haven't returned the vehicle %s yet\n",
+                        System.out.printf("WARNING: %s %s %s hasn't returned the vehicle %s yet\n",
                                 customer.getTckn(), customer.getFirstname(), customer.getLastname(),
-                                customer.getRents().getFirst().getVehicle().getModel());
+                               rentController.getCustomerActiveRent(customer).getVehicle().getModel());
                         break;
                     }
                     Vehicle vehicle = vehicleController.chooseAvailableVehicleBySegment();
+
                     rentController.newRent(customer, vehicle);
                 }
                 case 2 -> {
@@ -106,7 +107,7 @@ public class Main {
                 case 2 -> vehicleController.printAvailableVehicles();
                 case 3 -> {
                     Customer customer = customerController.getCustomerByTckn();
-                    vehicleController.printVehiclesRentedByCustomer(customer);
+                    rentController.printVehiclesRentedByCustomer(customer);
                 }
                 case 0 -> menu();
 

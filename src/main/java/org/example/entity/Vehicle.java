@@ -31,10 +31,6 @@ public class Vehicle {
     @OneToMany(mappedBy = "vehicle")
     List<Rent> rents;
 
-
-
-
-
     @Setter(AccessLevel.NONE)
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

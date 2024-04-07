@@ -6,6 +6,8 @@ import org.example.entity.Vehicle;
 import org.example.entity.enums.Status;
 import org.example.repository.RentRepository;
 
+import java.util.List;
+
 public class RentService {
 
     RentRepository rentRepository = new RentRepository();
@@ -30,6 +32,10 @@ public class RentService {
 
     public Rent getCustomerActiveRent(Customer customer){
         return rentRepository.getCustomersActiveRent(customer);
+    }
+
+    public List<Rent> getVehiclesRentedByCustomer(String tckn){
+        return rentRepository.getAllRentsOfCustomer(tckn);
     }
 
 

@@ -20,11 +20,11 @@ public class Rent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @JoinColumn(nullable = false)
-    @ManyToOne(cascade = CascadeType.DETACH)
-    Vehicle vehicle;
-    @JoinColumn(nullable = false)
     @ManyToOne
+    @JoinColumn(nullable = false)
+    Vehicle vehicle;
+    @ManyToOne
+    @JoinColumn(nullable = false)
     Customer customer;
 
     @Setter(AccessLevel.NONE)

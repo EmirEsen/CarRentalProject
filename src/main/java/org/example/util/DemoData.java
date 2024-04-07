@@ -103,7 +103,8 @@ public class DemoData {
 
     private static String generateRandomTCKN() {
         Random random = new Random();
-        StringBuilder tcknBuilder = new StringBuilder("1");
+        StringBuilder tcknBuilder = new StringBuilder();
+        tcknBuilder.append(1 + random.nextInt(9));
         for (int i = 1; i < 11; i++) {
             tcknBuilder.append(random.nextInt(10));
         }

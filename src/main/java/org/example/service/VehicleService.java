@@ -14,6 +14,9 @@ public class VehicleService {
         return vehicleRepository.save(vehicle);
     }
 
+    public Vehicle getVehicleWithId(Long id) {
+        return vehicleRepository.findById(id).orElse(null);
+    }
 
     public List<Vehicle> getVehiclesBySegment(Segment segment) {
         return vehicleRepository.getVehiclesBySegment(segment);
@@ -51,8 +54,6 @@ public class VehicleService {
         return vehicleRepository.getVehiclesInRent();
     }
 
-    public List<Vehicle> getVehiclesRentedByCustomer(Long customerId){
-        return vehicleRepository.getVehiclesRentedByCustomer(customerId);
-    }
+
 
 }

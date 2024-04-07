@@ -23,7 +23,14 @@ public class VehicleController {
                 .segment(segment)
                 .build();
 
-        return vehicleService.saveVehicle(newVehicle);
+        Vehicle savedVehicle = vehicleService.saveVehicle(newVehicle);
+        System.out.printf("Success: %s %s %s added into inventory.", savedVehicle.getId(),
+                savedVehicle.getBrand(), savedVehicle.getModel());
+        return savedVehicle;
+    }
+
+    public Vehicle getVehicleWithId(Long id) {
+        return vehicleService.getVehicleWithId(id);
     }
 
     public List<Vehicle> searchVehicleWithFilter() {
@@ -99,9 +106,6 @@ public class VehicleController {
     }
 
 
-
-
-
     public void printAvailableVehicles() {
         String content = "| %-2s | %-15s | %-15s |";
         String contentFormatted = content.formatted("Id", "Brand", "Model");
@@ -133,18 +137,7 @@ public class VehicleController {
         System.out.println("-".repeat(headerLength));
     }
 
-    public void printVehiclesRentedByCustomer(Customer customer) {
-        String content = "| %-2s | %-15s | %-15s | %-12s |";
-        String contentFormatted = content.formatted("Id", "Brand", "Model", "Still Rented");
-        int headerLength = Util.printMenuHeader("Vehicles Rented By Customer", contentFormatted.length());
-        System.out.println(contentFormatted);
-        System.out.println("-".repeat(headerLength));
-        vehicleService.getVehiclesRentedByCustomer(customer.getId()).forEach(v -> {
-            System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), v.isInRent());
 
-        });
-        System.out.println("-".repeat(headerLength));
-    }
 
 
 
