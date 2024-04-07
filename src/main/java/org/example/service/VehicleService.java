@@ -54,6 +54,8 @@ public class VehicleService {
         return vehicleRepository.getVehiclesInRent();
     }
 
-
+    public List<Vehicle> getVehiclesRentedByCustomer(String tckn){
+        return vehicleRepository.getVehiclesRentedByCustomer(tckn);
+    }
 
 }

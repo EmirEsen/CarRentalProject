@@ -137,7 +137,20 @@ public class VehicleController {
         System.out.println("-".repeat(headerLength));
     }
 
+    public void printVehiclesRentedByCustomer(Customer customer) {
+        String content = "| %-2s | %-15s | %-15s | %-12s |";
+        String contentFormatted = content.formatted("Id", "Brand", "Model", "Still Rented");
+        String header = "Vehicles Rented By %s %s %s".formatted(customer.getTckn(),
+                customer.getFirstname(), customer.getLastname());
+        int headerLength = Util.printMenuHeader(header, contentFormatted.length());
+        System.out.println(contentFormatted);
+        System.out.println("-".repeat(headerLength));
+        vehicleService.getVehiclesRentedByCustomer(customer.getTckn()).forEach(v -> {
+            System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), v.isInRent());
 
+        });
+        System.out.println("-".repeat(headerLength));
+    }
 
 
 

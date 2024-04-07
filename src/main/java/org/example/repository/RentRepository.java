@@ -2,7 +2,6 @@ package org.example.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -10,8 +9,6 @@ import org.example.entity.Customer;
 import org.example.entity.Rent;
 import org.example.entity.Vehicle;
 import org.example.entity.enums.Status;
-
-import java.util.List;
 
 public class RentRepository extends RepositoryManager<Rent, Long> {
 
@@ -79,17 +76,6 @@ public class RentRepository extends RepositoryManager<Rent, Long> {
             em.close();
         }
         return entity;
-    }
-
-    public List<Rent> getAllRentsOfCustomer(String tckn) {
-        String queryString = "SELECT r " +
-                "FROM Rent r " +
-                "JOIN r.customer c " +
-                "WHERE c.tckn = :tckn";
-
-        TypedQuery<Rent> query = getEntityManager().createQuery(queryString, Rent.class);
-        query.setParameter("tckn", tckn);
-        return query.getResultList();
     }
 
 

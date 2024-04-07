@@ -56,8 +56,18 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
         return query.getResultList();
     }
 
+    //Car rented same time doesnt appear on list twice
+    public List<Vehicle> getVehiclesRentedByCustomer(String tckn) {
+        String queryString = "SELECT v " +
+                "FROM Vehicle v " +
+                "JOIN v.rents r " +
+                "JOIN r.customer c " +
+                "WHERE c.tckn = :tckn";
 
-
+        TypedQuery<Vehicle> query = getEntityManager().createQuery(queryString, Vehicle.class);
+        query.setParameter("tckn", tckn);
+        return query.getResultList();
+    }
 
 
 
