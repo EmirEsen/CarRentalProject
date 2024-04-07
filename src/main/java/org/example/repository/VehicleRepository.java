@@ -36,6 +36,8 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
     }
 
 
+
+
     public List<Vehicle> getAvailableVehicles() {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Vehicle> cr = criteriaBuilder.createQuery(Vehicle.class);
@@ -54,14 +56,16 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
         return query.getResultList();
     }
 
-    public List<Vehicle> getVehiclesRentedByCustomer(Long customerId) {
+    //Car rented same time doesnt appear on list twice
+    public List<Vehicle> getVehiclesRentedByCustomer(String tckn) {
         String queryString = "SELECT v " +
                 "FROM Vehicle v " +
-                "JOIN v.rent r " +
-                "WHERE r.customer.id = :customerId";
+                "JOIN v.rents r " +
+                "JOIN r.customer c " +
+                "WHERE c.tckn = :tckn";
 
         TypedQuery<Vehicle> query = getEntityManager().createQuery(queryString, Vehicle.class);
-        query.setParameter("customerId", customerId);
+        query.setParameter("tckn", tckn);
         return query.getResultList();
     }
 

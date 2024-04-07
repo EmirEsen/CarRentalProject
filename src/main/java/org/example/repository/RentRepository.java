@@ -10,7 +10,7 @@ import org.example.entity.Rent;
 import org.example.entity.Vehicle;
 import org.example.entity.enums.Status;
 
-public class RentRepository extends RepositoryManager<Rent, Long>{
+public class RentRepository extends RepositoryManager<Rent, Long> {
 
     public RentRepository() {
         super(Rent.class);
@@ -77,7 +77,6 @@ public class RentRepository extends RepositoryManager<Rent, Long>{
         }
         return entity;
     }
-
 
 
 }
