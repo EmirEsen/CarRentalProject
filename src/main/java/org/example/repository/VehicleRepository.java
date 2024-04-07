@@ -4,7 +4,6 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import org.example.entity.Rent;
 import org.example.entity.Vehicle;
 import org.example.entity.enums.Segment;
 import org.example.entity.enums.Status;
@@ -55,23 +54,5 @@ public class VehicleRepository extends RepositoryManager<Vehicle, Long> {
         query.setParameter("status", Status.ACTIVE);
         return query.getResultList();
     }
-
-    //Car rented same time doesnt appear on list twice
-    public List<Vehicle> getVehiclesRentedByCustomer(String tckn) {
-        String queryString = "SELECT v " +
-                "FROM Vehicle v " +
-                "JOIN v.rents r " +
-                "JOIN r.customer c " +
-                "WHERE c.tckn = :tckn";
-
-        TypedQuery<Vehicle> query = getEntityManager().createQuery(queryString, Vehicle.class);
-        query.setParameter("tckn", tckn);
-        return query.getResultList();
-    }
-
-
-
-
-
 
 }

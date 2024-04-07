@@ -30,13 +30,9 @@ public class VehicleService {
         return vehicleRepository.findById(id).orElse(null);
     }
 
-
-
     public List<Vehicle> getVehicleWithFilter(String filtername, String filterValue){
         return vehicleRepository.getVehiclesWithFilter(filtername, filterValue);
     }
-
-
 
     public String[] getFieldNames() {
         String[] fieldnames = new String[3];
@@ -53,9 +49,4 @@ public class VehicleService {
     public List<Vehicle> getVehiclesInRent(){
         return vehicleRepository.getVehiclesInRent();
     }
-
-    public List<Vehicle> getVehiclesRentedByCustomer(String tckn){
-        return vehicleRepository.getVehiclesRentedByCustomer(tckn);
-    }
-
 }

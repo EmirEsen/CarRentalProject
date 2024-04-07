@@ -43,7 +43,7 @@ public class Main {
                 case 1 -> vehicleController.addNewVehicle();
                 case 2 -> {
                     Vehicle vehicle = vehicleController.selectListedVehicles(vehicleController.searchVehicleWithFilter());
-                    if (vehicle != null) {
+                    if (vehicle != null ) {
                         Customer customer = customerController.getCustomerByTckn();
                         rentController.newRent(customer, vehicle);
                     }

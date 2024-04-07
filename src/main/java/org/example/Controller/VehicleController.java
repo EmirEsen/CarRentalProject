@@ -24,7 +24,7 @@ public class VehicleController {
                 .build();
 
         Vehicle savedVehicle = vehicleService.saveVehicle(newVehicle);
-        System.out.printf("Success: %s %s %s added into inventory.", savedVehicle.getId(),
+        System.out.printf("Success: %s %s %s added into inventory.\n", savedVehicle.getId(),
                 savedVehicle.getBrand(), savedVehicle.getModel());
         return savedVehicle;
     }
@@ -35,12 +35,12 @@ public class VehicleController {
 
     public List<Vehicle> searchVehicleWithFilter() {
         String[] vehicleFields = vehicleService.getFieldNames();
-        Util.printMenuHeader("SEARCH VEHICLE W.FILTER", 0 );
+        Util.printMenuHeader("SEARCH VEHICLE W.FILTER", 0);
         for (int i = 0; i < vehicleFields.length; i++) {
             System.out.printf("[%d]- %s\n", i + 1, vehicleFields[i]);
         }
         int filterIndex = Util.intScanner("Select Search filter: ");
-        if(filterIndex == 3){
+        if (filterIndex == 3) {
             Segment segment = selectSegment();
             return vehicleService.getVehiclesBySegment(segment);
         }
@@ -60,7 +60,7 @@ public class VehicleController {
         System.out.println("-".repeat(headerLength));
         AtomicInteger count = new AtomicInteger();
         List<Vehicle> vehicles = vehicleService.getVehiclesBySegment(segment);
-               vehicles.stream()
+        vehicles.stream()
                 .filter(v -> !v.isInRent()) //bosta olan araclari gosterir.
                 .forEach(v -> {
 
@@ -70,7 +70,7 @@ public class VehicleController {
         System.out.println("-".repeat(headerLength));
         int vehicleId = Util.intScanner("Choose Vehicle: ");
 
-        return vehicles.get(vehicleId-1);
+        return vehicles.get(vehicleId - 1);
 //        return vehicleService.getVehicleById(vehicleId);
     }
 
@@ -92,15 +92,25 @@ public class VehicleController {
         System.out.println("-".repeat(headerLength));
 
         vehicles.forEach(v -> {
-                    System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), !v.isInRent());
-                });
+            System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), !v.isInRent());
+        });
 
         System.out.println("-".repeat(headerLength));
 
+        Vehicle vehicle = null;
         String isProceed = Util.stringScanner("Would you like to rent any of it: (y/n)");
         if (isProceed.equalsIgnoreCase("y")) {
-            Long vehicleId = Util.longScanner("Chose vehicle[id]: ");
-            return vehicleService.getVehicleById(vehicleId);
+            do {
+                Long vehicleId = Util.longScanner("Chose vehicle[id]: ");
+                vehicle = vehicleService.getVehicleById(vehicleId);
+
+                if (vehicle.isInRent()) {
+                    System.out.printf("%d %s %s is not available, select another vehicle.\n", vehicle.getId(),
+                            vehicle.getBrand(), vehicle.getModel());
+                }else {
+                    return vehicle;
+                }
+            } while (vehicle.isInRent());
         }
         return null;
     }
@@ -131,29 +141,10 @@ public class VehicleController {
                 .stream()
                 .filter(Vehicle::isInRent)
                 .forEach(v -> {
-            System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), v.getRents().getFirst().getCustomer().getTckn(),
-                    v.getRents().getFirst().getCustomer().getFirstname(), v.getRents().getFirst().getCustomer().getLastname());
-        });
+                    System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), v.getRents().getFirst().getCustomer().getTckn(),
+                            v.getRents().getFirst().getCustomer().getFirstname(), v.getRents().getFirst().getCustomer().getLastname());
+                });
         System.out.println("-".repeat(headerLength));
     }
-
-    public void printVehiclesRentedByCustomer(Customer customer) {
-        String content = "| %-2s | %-15s | %-15s | %-12s |";
-        String contentFormatted = content.formatted("Id", "Brand", "Model", "Still Rented");
-        String header = "Vehicles Rented By %s %s %s".formatted(customer.getTckn(),
-                customer.getFirstname(), customer.getLastname());
-        int headerLength = Util.printMenuHeader(header, contentFormatted.length());
-        System.out.println(contentFormatted);
-        System.out.println("-".repeat(headerLength));
-        vehicleService.getVehiclesRentedByCustomer(customer.getTckn()).forEach(v -> {
-            System.out.printf((content) + "%n", v.getId(), v.getBrand(), v.getModel(), v.isInRent());
-
-        });
-        System.out.println("-".repeat(headerLength));
-    }
-
-
-
-
 
 }
