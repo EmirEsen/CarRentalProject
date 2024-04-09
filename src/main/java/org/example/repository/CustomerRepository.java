@@ -37,12 +37,6 @@ public class CustomerRepository extends RepositoryManager<Customer, Long>{
         }
     }
 
-//    public List<Rent> getActiveRentOfCustomer(Customer customer){
-//       return customer.getRents().stream()
-//                .filter(rent -> rent.getStatus().equals(Status.ACTIVE))
-//                .toList();
-//    }
-
     @Override
     public List<Customer> findByColumnAndValue(String columnName, Object value) {
         return super.findByColumnAndValue(columnName, value);

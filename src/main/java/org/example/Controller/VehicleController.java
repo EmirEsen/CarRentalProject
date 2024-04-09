@@ -1,6 +1,5 @@
 package org.example.Controller;
 
-import org.example.entity.Customer;
 import org.example.entity.Vehicle;
 import org.example.entity.enums.Segment;
 import org.example.service.VehicleService;

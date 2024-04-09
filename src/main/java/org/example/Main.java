@@ -43,9 +43,15 @@ public class Main {
                 case 1 -> vehicleController.addNewVehicle();
                 case 2 -> {
                     Vehicle vehicle = vehicleController.selectListedVehicles(vehicleController.searchVehicleWithFilter());
-                    if (vehicle != null ) {
+                    if (vehicle != null) {
                         Customer customer = customerController.getCustomerByTckn();
-                        rentController.newRent(customer, vehicle);
+                        Rent customerActiveRent = rentController.getCustomerActiveRent(customer);
+                        if (customerActiveRent == null) {
+                            rentController.newRent(customer, vehicle);
+                        }else {
+                            System.out.printf("%s %s %s -> Rent %s %s is still active.\n", customer.getTckn(), customer.getFirstname(), customer.getLastname(),
+                                    customerActiveRent.getVehicle().getBrand(), customerActiveRent.getVehicle().getModel());
+                        }
                     }
                 }
                 case 3 -> customerController.addNewCustomer();
@@ -58,7 +64,7 @@ public class Main {
     }
 
 
-    public static void rentMenu(){
+    public static void rentMenu() {
         while (true) {
             System.out.println("""
                     ------- RENT MENU -------
@@ -70,10 +76,10 @@ public class Main {
             switch (input) {
                 case 1 -> {
                     Customer customer = customerController.getCustomerByTckn();
-                    if (customer.isHasRent()){
+                    if (customer.isHasRent()) {
                         System.out.printf("WARNING: %s %s %s hasn't returned the vehicle %s yet\n",
                                 customer.getTckn(), customer.getFirstname(), customer.getLastname(),
-                               rentController.getCustomerActiveRent(customer).getVehicle().getModel());
+                                rentController.getCustomerActiveRent(customer).getVehicle().getModel());
                         break;
                     }
                     Vehicle vehicle = vehicleController.chooseAvailableVehicleBySegment();
