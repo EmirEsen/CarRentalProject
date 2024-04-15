@@ -2,6 +2,7 @@ package org.example.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -12,6 +13,7 @@ import org.example.entity.Vehicle;
 import org.example.entity.enums.Status;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RentRepository extends RepositoryManager<Rent, Long> {
 
@@ -19,14 +21,18 @@ public class RentRepository extends RepositoryManager<Rent, Long> {
         super(Rent.class);
     }
 
-    public Rent getCustomersActiveRent(Customer customer) {
+    public Optional<Rent> getCustomersActiveRent(Customer customer) {
         EntityManager em = getEntityManager();
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Rent> cq = cb.createQuery(Rent.class);
             Root<Rent> root = cq.from(Rent.class);
             cq.select(root).where(cb.and(cb.equal(root.get("customer"), customer), cb.equal(root.get("status"), Status.ACTIVE)));
-            return em.createQuery(cq).getSingleResult();
+            try {
+                return Optional.ofNullable(em.createQuery(cq).getSingleResult());
+            }catch (NoResultException e){
+                return Optional.empty();
+            }
         } finally {
             em.close();
         }

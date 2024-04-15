@@ -19,14 +19,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Bu satiri calistirarak veri tabanina musteri ve arac ekleyebilirsiniz.
+        //with running createDemoData customers and vehicles can be added into database
 //        new DemoData().createDemoData();
 
         menu();
 
 
     }
-
+    //todo add rental date, daily rental price for segments, add revenue per customer in reports
     public static void menu() {
         while (true) {
             System.out.println("""
@@ -92,10 +92,8 @@ public class Main {
                     rentController.returnRent(activeRent);
                 }
                 case 0 -> menu();
-
             }
         }
-
     }
 
     public static void reportMenu() {
@@ -116,7 +114,6 @@ public class Main {
                     rentController.printVehiclesRentedByCustomer(customer);
                 }
                 case 0 -> menu();
-
             }
         }
     }
