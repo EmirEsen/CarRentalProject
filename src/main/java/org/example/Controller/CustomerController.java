@@ -37,5 +37,15 @@ public class CustomerController {
         return customerService.getCustomerByTckn(tckn);
     }
 
+    public void getCustomerByFullName(){
+        String fullname = Util.stringScanner("Customer Fullname: ");
+
+        List<Customer> customers = customerService.getCustomersByFullName(fullname);
+        for (Customer customer : customers) {
+            System.out.printf("%s %s %s\n", customer.getTckn(), customer.getFirstname(), customer.getLastname());
+        }
+
+    }
+
 
 }

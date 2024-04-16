@@ -103,6 +103,7 @@ public class Main {
                      [1]- Show Vehicles In Rent
                      [2]- Show Available Vehicles
                      [3]- Show Vehicles Rented By Customer
+                     [4]- Search Customers With Full Name
                      [0]- Quit
                     """);
             int input = Util.intScanner("input: ");
@@ -113,6 +114,7 @@ public class Main {
                     Customer customer = customerController.getCustomerByTckn();
                     rentController.printVehiclesRentedByCustomer(customer);
                 }
+                case 4 -> customerController.getCustomerByFullName();
                 case 0 -> menu();
             }
         }

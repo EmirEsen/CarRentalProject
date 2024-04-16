@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -35,6 +36,25 @@ public class CustomerRepository extends RepositoryManager<Customer, Long>{
         } finally {
             em.close();
         }
+    }
+
+    public List<Customer> findByFullname(String fullname){
+        String[] parts = fullname.split("\\s+"); // Split by whitespace
+        String firstName = parts[0];
+        String lastName = parts.length > 1 ? parts[1] : "";
+        List<Customer> customersFound;
+
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = null;
+        try {
+            customersFound = em.createNamedQuery("Customer.findByName", Customer.class)
+                    .setParameter("firstname", firstName)
+                    .setParameter("lastname", lastName)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+        return customersFound;
     }
 
     @Override

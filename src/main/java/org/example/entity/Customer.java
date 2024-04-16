@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@NamedQuery(name="Customer.findByName", query="SELECT c FROM Customer c WHERE c.firstname = :firstname AND c.lastname = :lastname")
 @Table(name = "customers")
 public class Customer {
 

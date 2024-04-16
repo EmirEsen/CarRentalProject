@@ -23,5 +23,9 @@ public class CustomerService {
 //        return customerRepository.getActiveRentOfCustomer(customer);
 //    }
 
+    public List<Customer> getCustomersByFullName(String fullname){
+        return customerRepository.findByFullname(fullname);
+    }
+
 
 }
